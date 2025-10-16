@@ -1,4 +1,8 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
 require_once __DIR__ . '/config.php';
 
 // CSRF helpers
@@ -86,9 +90,12 @@ function safe_redirect($url) {
 // Saat butuh akses halaman terlindungi: simpan tujuan dan pindah ke login
 function require_login_and_redirect() {
     if (!is_logged_in()) {
-        // simpan halaman tujuan (path)
-        $_SESSION['redirect_to'] = get_current_path();
-        header('Location: index.php');
+        // Simpan halaman yang diminta sebelum login
+        $_SESSION['redirect_to'] = $_SERVER['REQUEST_URI'];
+
+        // 🔒 Redirect absolut ke login.php di root folder
+        header('Location: /heavens/login.php');
         exit;
     }
 }
+

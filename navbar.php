@@ -17,10 +17,23 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-- Menu utama -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="akun.php">Akun</a></li>
-                <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>"
-                    href="dashboard.php">Dashboard</a>
-                <li class="nav-item"><a class="nav-link" href="praktikum.php">Praktikum</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="akunDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Akun
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="akunDropdown">
+                        <li><a class="dropdown-item" href="akun.php">Profil</a></li>
+                        <li><a class="dropdown-item" href="register.php">Tambah Akun (Register)</a></li>
+                    </ul>
+                </li>
+              
+                <li class="nav-item">
+                    <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'praktikum/praktikum.php') !== false ? 'active' : ''; ?>"
+                        href="praktikum/praktikum.php">
+                        Praktikum
+                    </a>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="modul.php">Modul</a></li>
                 <li class="nav-item"><a class="nav-link" href="isi_modul.php">Isi Modul</a></li>
                 <li class="nav-item"><a class="nav-link" href="rekap_presensi.php">Rekap Presensi</a></li>
@@ -39,7 +52,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </span>
                 </li>
                 <li class="nav-item">
-                    <a href="logout.php" class="btn btn-outline-light btn-sm">Logout</a>
+                    <a href="/heavens/logout.php" class="btn btn-outline-light btn-sm">Logout</a>
                 </li>
             </ul>
         </div>
