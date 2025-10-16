@@ -1,0 +1,16 @@
+# Basic .htaccess - place in folder to improve security on Apache shared hosting
+# Deny access to config and functions from web (if PHP is parsed, this is less critical,
+# but on misconfigured servers it's useful)
+<FilesMatch "^(config|functions)\.php$">
+    Require all denied
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
+
+# Recommended security headers (if server allows)
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
