@@ -60,3 +60,35 @@ function too_many_failed_logins() {
     }
     return false;
 }
+// Ambil path relatif saat ini (contoh: /heavens/dashboard.php?x=1)
+function get_current_path() {
+    $uri = $_SERVER['REQUEST_URI'] ?? '/';
+    // Jika aplikasi berada di subfolder (contoh /heavens), uri sudah relatif dari root server
+    return $uri;
+}
+
+// Cegah open redirect — hanya izinkan path internal (tidak mengizinkan http://)
+function safe_redirect($url) {
+    if (empty($url)) {
+        header('Location: index.php');
+        exit;
+    }
+    // pastikan bukan URL luar
+    if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0) {
+        header('Location: index.php');
+        exit;
+    }
+    // jika url dimulai dengan /, gunakan itu; jika relative, gunakan langsung
+    header('Location: ' . $url);
+    exit;
+}
+
+// Saat butuh akses halaman terlindungi: simpan tujuan dan pindah ke login
+function require_login_and_redirect() {
+    if (!is_logged_in()) {
+        // simpan halaman tujuan (path)
+        $_SESSION['redirect_to'] = get_current_path();
+        header('Location: index.php');
+        exit;
+    }
+}

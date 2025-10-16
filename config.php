@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 session_name('php_login_sess');
 session_start([
     'cookie_httponly' => true,
-    // 'cookie_secure' => true, // uncomment when using HTTPS
+// 'cookie_secure' => true, // uncomment on HTTPS
     'cookie_samesite' => 'Lax',
 ]);
 

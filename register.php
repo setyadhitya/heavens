@@ -42,22 +42,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!doctype html>
 <html>
-<head><meta charset="utf-8"><title>Register</title></head>
-<body>
-<h2>Register (use once then remove)</h2>
-<?php foreach($errors as $err): ?>
-    <div style="color:red"><?php echo e($err); ?></div>
-<?php endforeach; ?>
-<?php if($success): ?>
-    <div style="color:green"><?php echo e($success); ?></div>
-<?php endif; ?>
-<form method="post" action="">
-    <input type="hidden" name="csrf_token" value="<?php echo e(csrf_token()); ?>">
-    <label>Nama:<br><input type="text" name="nama" required></label><br>
-    <label>Username:<br><input type="text" name="username" required></label><br>
-    <label>Password:<br><input type="password" name="password" required></label><br>
-    <button type="submit">Register</button>
-</form>
-<p><a href="index.php">Back to Login</a></p>
+<head>
+  <meta charset="utf-8">
+  <title>Register</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-sm" style="width:400px">
+    <div class="card-body">
+      <h4 class="card-title text-center mb-3">Register</h4>
+
+      <?php foreach($errors as $err): ?>
+        <div class="alert alert-danger py-2"><?php echo e($err); ?></div>
+      <?php endforeach; ?>
+
+      <?php if($success): ?>
+        <div class="alert alert-success py-2"><?php echo e($success); ?></div>
+      <?php endif; ?>
+
+      <form method="post" action="">
+        <input type="hidden" name="csrf_token" value="<?php echo e(csrf_token()); ?>">
+        <div class="mb-2">
+          <label class="form-label">Nama</label>
+          <input type="text" name="nama" class="form-control" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Username</label>
+          <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="d-grid">
+          <button class="btn btn-success">Daftar</button>
+        </div>
+      </form>
+
+      <div class="mt-3 small text-center">
+        <a href="index.php">Kembali ke login</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
