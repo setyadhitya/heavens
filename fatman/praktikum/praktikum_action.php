@@ -39,11 +39,11 @@ switch ($action) {
   $jam_ahir = date("H:i", strtotime("$jam_mulai +3 hours"));
 
   // 🔹 Tentukan shift otomatis
-  if ($jam_mulai <= '10:00') $shift = 'Shift I';
-  elseif ($jam_mulai <= '12:30') $shift = 'Shift II';
-  elseif ($jam_mulai <= '15:00') $shift = 'Shift III';
-  elseif ($jam_mulai <= '17:30') $shift = 'Shift IV';
-  else $shift = 'Shift V';
+  if ($jam_mulai <= '10:00') $shift = 'I';
+  elseif ($jam_mulai <= '12:30') $shift = 'II';
+  elseif ($jam_mulai <= '15:00') $shift = 'III';
+  elseif ($jam_mulai <= '17:30') $shift = 'IV';
+  else $shift = 'V';
 
   // 🚫 Cek duplikasi (hari + shift)
   $cek = $mysqli->prepare("SELECT COUNT(*) AS total FROM tb_praktikum WHERE hari = ? AND shift = ?");
@@ -67,7 +67,7 @@ switch ($action) {
   }
 
   $stmt->bind_param(
-    "issssssss",
+    "isssssssss",
     $mata_kuliah_id,
     $jurusan,
     $kelas,
@@ -133,11 +133,11 @@ switch ($action) {
   $jam_ahir = date("H:i", strtotime("$jam_mulai +3 hours"));
 
   // 🔹 Tentukan shift otomatis
-  if ($jam_mulai <= '10:00') $shift = 'Shift I';
-  elseif ($jam_mulai <= '12:30') $shift = 'Shift II';
-  elseif ($jam_mulai <= '15:00') $shift = 'Shift III';
-  elseif ($jam_mulai <= '17:30') $shift = 'Shift IV';
-  else $shift = 'Shift V';
+  if ($jam_mulai <= '10:00') $shift = 'I';
+  elseif ($jam_mulai <= '12:30') $shift = 'II';
+  elseif ($jam_mulai <= '15:00') $shift = 'III';
+  elseif ($jam_mulai <= '17:30') $shift = 'IV';
+  else $shift = 'V';
 
   // 🚫 Cek bentrok (hari + shift) kecuali data ini sendiri
   $cek = $mysqli->prepare("SELECT COUNT(*) AS total FROM tb_praktikum WHERE hari = ? AND shift = ? AND id != ?");
