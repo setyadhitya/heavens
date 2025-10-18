@@ -6,45 +6,39 @@ if (session_status() === PHP_SESSION_NONE) {
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.php">Heavens</a>
+        <a class="navbar-brand" href="/heavens/index.php">Heavens</a>
 
-        <!-- Tombol toggle untuk mode HP -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Menu utama -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="akunDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Akun
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="akunDropdown">
-                        <li><a class="dropdown-item" href="akun.php">Profil</a></li>
-                        <li><a class="dropdown-item" href="register.php">Tambah Akun (Register)</a></li>
+                        <li><a class="dropdown-item" href="/heavens/akun.php">Profil</a></li>
+                        <li><a class="dropdown-item" href="/heavens/register.php">Tambah Akun (Register)</a></li>
                     </ul>
                 </li>
-              
-                <li class="nav-item">
-                    <a class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'praktikum/praktikum.php') !== false ? 'active' : ''; ?>"
-                        href="praktikum/praktikum.php">
-                        Praktikum
-                    </a>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="modul.php">Modul</a></li>
-                <li class="nav-item"><a class="nav-link" href="isi_modul.php">Isi Modul</a></li>
-                <li class="nav-item"><a class="nav-link" href="rekap_presensi.php">Rekap Presensi</a></li>
-                <li class="nav-item"><a class="nav-link" href="assisten.php">Asisten</a></li>
-                <li class="nav-item"><a class="nav-link" href="assisten_praktikum.php">Asisten Praktikum</a></li>
-                <li class="nav-item"><a class="nav-link" href="praktikan.php">Praktikan</a></li>
-                <li class="nav-item"><a class="nav-link" href="peserta_praktikum.php">Peserta Praktikum</a></li>
-                <li class="nav-item"><a class="nav-link" href="../approve/approve.php">Approve Praktikan</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="/heavens/praktikum/praktikum.php">Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/modul/modul.php">Modul</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/isi_modul/isi_modul.php">Isi Modul</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/rekap/rekap.php">Rekap Presensi</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/assisten/assisten.php">Asisten</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/assisten_praktikum.php">Asisten Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/praktikan/praktikan.php">Praktikan</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/peserta/peserta.php">Peserta Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/approve/approve.php">Approve Praktikan</a></li>
+
             </ul>
 
-            <!-- Info user & logout -->
             <ul class="navbar-nav">
                 <li class="nav-item me-2">
                     <span class="navbar-text text-white">

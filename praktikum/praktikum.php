@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../functions.php';
+require_admin();
 require_login_and_redirect();
 include '../navbar.php';
 ?>
