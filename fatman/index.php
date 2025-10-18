@@ -1,8 +1,7 @@
 
 <?php
-
 require_once __DIR__ . '/functions.php';
-block_folder_by_role('fatman');
+require_once __DIR__ . '/../access_guard.php';
 
 
 
@@ -24,7 +23,12 @@ include 'navbar.php';
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <?php show_flash(); ?>
+<?php if (!empty($_SESSION['flash'])): ?>
+  <div class="alert alert-<?= $_SESSION['flash']['type'] ?> text-center">
+      <?= $_SESSION['flash']['msg'] ?>
+  </div>
+  <?php unset($_SESSION['flash']); ?>
+<?php endif; ?>
   <div class="container mt-4">
     <div class="card shadow-sm">
       <div class="card-body">

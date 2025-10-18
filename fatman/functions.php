@@ -182,20 +182,22 @@ function require_admin() {
 // =========================
 
 // Simpan pesan flash ke session
+// Simpan pesan flash ke session
 function set_flash($msg, $type = 'danger') {
     $_SESSION['flash'] = [
-        'msg' => $msg,
-        'type' => $type // bootstrap alert: danger, success, warning, info
+        'msg'  => $msg,
+        'type' => $type
     ];
 }
 
-// Tampilkan flash jika ada lalu hapus
+// Tampilkan alert Bootstrap di bagian atas halaman lalu hapus
 function show_flash() {
     if (!empty($_SESSION['flash'])) {
+        // Polos, tanpa ikon — sesuai permintaan
         echo '<div class="alert alert-' . e($_SESSION['flash']['type']) . ' text-center mb-0">'
-            . e($_SESSION['flash']['msg']) .
-            '</div>';
-        unset($_SESSION['flash']);
+             . e($_SESSION['flash']['msg']) .
+             '</div>';
+        unset($_SESSION['flash']); // hapus supaya tidak tampil berulang
     }
 }
 

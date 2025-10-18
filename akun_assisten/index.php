@@ -2,7 +2,8 @@
 // /akun_assisten/index.php
 
 require_once __DIR__ . '/../fatman/functions.php';
-block_folder_by_role('akun_assisten'); // 🔥 proteksi folder
+require_once __DIR__ . '/../access_guard.php'; // aktifkan proteksi role otomatis
+
 
 
 

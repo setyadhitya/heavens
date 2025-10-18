@@ -2,6 +2,9 @@
 // /akun_assisten/login/index.php
 require_once __DIR__ . '/../../fatman/functions.php';
 
+require_once __DIR__ . '/../../access_guard.php'; // aktifkan proteksi role otomatis
+
+
 // Jika sudah login:
 if (is_logged_in()) {
     // Kalau role asisten -> ke dashboard asisten
@@ -86,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
 </head>
 
 <body class="bg-light">
+        <?php show_flash(); ?>
+
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow" style="width:380px">
             <div class="card-body">
