@@ -27,15 +27,15 @@ if (session_status() === PHP_SESSION_NONE) {
                     </ul>
                 </li>
 
-                <li class="nav-item"><a class="nav-link" href="/heavens/praktikum">Praktikum</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/modul">Modul</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/isi_modul">Isi Modul</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/rekap">Rekap Presensi</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/assisten">Asisten</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/assisten_praktikum">Asisten Praktikum</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/praktikan">Praktikan</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/peserta">Peserta Praktikum</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/approve">Approve Praktikan</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/praktikum">Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/modul">Modul</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/isi_modul">Isi Modul</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/rekap">Rekap Presensi</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/assisten">Asisten</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/assisten_praktikum">Asisten Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/praktikan">Praktikan</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/peserta">Peserta Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/approve">Approve Praktikan</a></li>
 
             </ul>
 

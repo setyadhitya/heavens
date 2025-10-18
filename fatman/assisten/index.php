@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../functions.php';
 require_admin();
-block_folder_by_role('fatman');
 
 // Ambil data awal (render pertama), reload berikutnya via AJAX -> assisten_action.php?action=list
 $result = $mysqli->query("SELECT * FROM tb_assisten ORDER BY id DESC");

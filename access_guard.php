@@ -1,6 +1,15 @@
 <?php
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
+
+// ✅ IZINKAN HALAMAN LOGIN & LOGOUT
 if (strpos($uri, '/heavens/fatman/login.php') === 0) return;
+if (strpos($uri, '/heavens/akun_assisten/login') === 0) return;
+if (strpos($uri, '/heavens/akun_mahasiswa/login') === 0) return;
+
+if (strpos($uri, '/heavens/fatman/logout.php') === 0) return;
+if (strpos($uri, '/heavens/akun_assisten/logout.php') === 0) return;
+if (strpos($uri, '/heavens/akun_mahasiswa/logout.php') === 0) return;
+
 
 /**
  * Access Guard Global — /heavens/access_guard.php
@@ -63,7 +72,7 @@ if (!isset($deny[$role])) {
 
 foreach ($deny[$role] as $forbiddenPrefix) {
     if (strpos($uri, $forbiddenPrefix) === 0) {
-        set_flash('Halaman ini bukan untuk role akun anda.', 'danger');
+        set_flash('Halaman yang akan anda tuju bukan untuk role akun anda.', 'danger');
         if ($role === 'admin') {
             header('Location: /heavens/fatman/index.php');
         } elseif ($role === 'assisten') {
