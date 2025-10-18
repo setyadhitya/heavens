@@ -1,12 +1,12 @@
-# Basic .htaccess - keamanan folder role
+# Security
 <FilesMatch "^(config|functions)\.php$">
     Require all denied
 </FilesMatch>
-
 Options -Indexes
-
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set Referrer-Policy "no-referrer-when-downgrade"
 </IfModule>
+
+php_value auto_prepend_file "D:/xampp/htdocs/heavens/access_guard.php"

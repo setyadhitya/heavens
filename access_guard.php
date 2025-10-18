@@ -1,73 +1,78 @@
 <?php
+$uri = $_SERVER['REQUEST_URI'] ?? '/';
+if (strpos($uri, '/heavens/fatman/login.php') === 0) return;
+
 /**
- * Access Guard (Global) — /heavens/access_guard.php
- * --------------------------------------------------
- * Dipanggil sekali di index.php setiap folder role:
- *   - /heavens/fatman/index.php            (ADMIN)
- *   - /heavens/akun_assisten/index.php     (ASSISTEN)
- *   - /heavens/akun_mahasiswa/index.php    (PRAKTIKAN)
- * 
- * Efek:
- * - Memblokir akses ke folder yang bukan hak role
- * - Redirect otomatis ke halaman role masing-masing
- * - Tampilkan alert Bootstrap (flash) di halaman tujuan
- * - Tidak perlu menulis proteksi di tiap file/subfolder lagi
+ * Access Guard Global — /heavens/access_guard.php
+ * Auto-dijalankan untuk SETIAP file di folder role via .htaccess (auto_prepend_file).
+ * Fitur:
+ *  - Redirect ke portal login sesuai folder bila belum login (multi-login).
+ *  - Blokir akses silang antar role, redirect ke home role + flash alert.
+ *  - Aman untuk semua subfolder & file.
  */
+require_once __DIR__ . '/fatman/functions.php'; // session + helpers
 
-require_once __DIR__ . '/fatman/functions.php'; // memuat session, config, helpers
-
-// Helper ringkas untuk set flash message
+// Helper ringkas (fallback jika belum ada)
 if (!function_exists('set_flash')) {
     function set_flash($msg, $type = 'danger') {
         $_SESSION['flash'] = ['msg' => $msg, 'type' => $type];
     }
 }
 
-// Helper untuk redirect dan stop eksekusi
-if (!function_exists('guard_redirect')) {
-    function guard_redirect($url) {
-        header("Location: $url");
+// Ambil path saat ini
+$uri  = $_SERVER['REQUEST_URI'] ?? '/';
+$role = $_SESSION['role'] ?? null;
+
+// ————— 1) Jika BELUM LOGIN → arahkan ke portal login sesuai folder yang diakses —————
+if (!$role) {
+    // admin folder
+    if (strpos($uri, '/heavens/fatman/') === 0) {
+        set_flash('Silakan login terlebih dahulu.', 'warning');
+        header('Location: /heavens/fatman/login.php');
+        exit;
+    }
+    // asisten folder
+    if (strpos($uri, '/heavens/akun_assisten/') === 0) {
+        set_flash('Silakan login terlebih dahulu.', 'warning');
+        header('Location: /heavens/akun_assisten/login/index.php');
+        exit;
+    }
+    // praktikan folder
+    if (strpos($uri, '/heavens/akun_mahasiswa/') === 0) {
+        set_flash('Silakan login terlebih dahulu.', 'warning');
+        header('Location: /heavens/akun_mahasiswa/login.php');
+        exit;
+    }
+    // selain itu biarkan ke beranda
+    // (biar halaman umum tetap bisa diakses tanpa login)
+    return;
+}
+
+// ————— 2) Sudah LOGIN → Blokir akses folder yang bukan haknya —————
+$deny = [
+    'admin'     => ['/heavens/akun_assisten/', '/heavens/akun_mahasiswa/'],
+    'assisten'  => ['/heavens/fatman/', '/heavens/akun_mahasiswa/'],
+    'praktikan' => ['/heavens/fatman/', '/heavens/akun_assisten/'],
+];
+
+if (!isset($deny[$role])) {
+    set_flash('Akses ditolak. Role tidak dikenali.', 'danger');
+    header('Location: /heavens/index.php');
+    exit;
+}
+
+foreach ($deny[$role] as $forbiddenPrefix) {
+    if (strpos($uri, $forbiddenPrefix) === 0) {
+        set_flash('Halaman ini bukan untuk role akun anda.', 'danger');
+        if ($role === 'admin') {
+            header('Location: /heavens/fatman/index.php');
+        } elseif ($role === 'assisten') {
+            header('Location: /heavens/akun_assisten/index.php');
+        } else { // praktikan
+            header('Location: /heavens/akun_mahasiswa/index.php');
+        }
         exit;
     }
 }
 
-// Jika belum login sama sekali → arahkan ke halaman utama (atau login Anda)
-if (empty($_SESSION['role'])) {
-    set_flash("Silakan login terlebih dahulu.", "warning");
-    guard_redirect("/heavens/index.php");
-}
-
-// Ambil role dan path saat ini
-$role        = $_SESSION['role'];
-$currentPath = $_SERVER['REQUEST_URI'] ?? '/';
-
-// Aturan blokir akses antar role:
-// - admin:  DILARANG ke /akun_assisten/ dan /akun_mahasiswa/
-// - assisten: DILARANG ke /fatman/ dan /akun_mahasiswa/
-// - praktikan: DILARANG ke /fatman/ dan /akun_assisten/
-$deny = [
-    'admin'     => ['/akun_assisten', '/akun_mahasiswa'],
-    'assisten'  => ['/fatman', '/akun_mahasiswa'],
-    'praktikan' => ['/fatman', '/akun_assisten'],
-];
-
-// Jika role tidak dikenal, pulangkan ke beranda
-if (!isset($deny[$role])) {
-    set_flash("Akses ditolak. Role tidak dikenali.", "danger");
-    guard_redirect("/heavens/index.php");
-}
-
-// Cek apakah path sekarang mengandung folder yang dilarang
-foreach ($deny[$role] as $forbidden) {
-    if (strpos($currentPath, $forbidden) !== false) {
-        // Kirim flash alert polos (tanpa ikon)
-        set_flash("Halaman ini bukan untuk role akun anda.", "danger");
-
-        // Redirect ke home sesuai role
-        if ($role === 'admin')     guard_redirect("/heavens/fatman/index.php");
-        if ($role === 'assisten')  guard_redirect("/heavens/akun_assisten/index.php");
-        if ($role === 'praktikan') guard_redirect("/heavens/akun_mahasiswa/index.php");
-    }
-}
-
-// Jika lolos semua pengecekan, berarti akses valid untuk role saat ini.
+// Lolos guard → halaman aman untuk role saat ini.
