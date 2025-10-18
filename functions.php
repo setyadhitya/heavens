@@ -90,14 +90,29 @@ function safe_redirect($url) {
 // Saat butuh akses halaman terlindungi: simpan tujuan dan pindah ke login
 function require_login_and_redirect() {
     if (!is_logged_in()) {
-        // Simpan halaman yang diminta sebelum login
-        $_SESSION['redirect_to'] = $_SERVER['REQUEST_URI'];
 
-        // 🔒 Redirect absolut ke login.php di root folder
+        // Simpan redirect hanya untuk halaman biasa, BUKAN folder sensitif
+        $current = $_SERVER['REQUEST_URI'];
+
+        // Jangan simpan redirect ke folder/module
+        if (
+            strpos($current, '/praktikum/') === false &&
+            strpos($current, '/assisten_praktikum/') === false &&
+            strpos($current, '/peserta/') === false &&
+            strpos($current, '/approve/') === false &&
+            strpos($current, '/praktikan/') === false &&
+            strpos($current, '/admin/') === false
+        ) {
+            $_SESSION['redirect_to'] = $current;
+        } else {
+            unset($_SESSION['redirect_to']); // prevent redirect masalah
+        }
+
         header('Location: /heavens/login.php');
         exit;
     }
 }
+
 
 function require_admin() {
     require_login(); // pastikan sudah login dulu

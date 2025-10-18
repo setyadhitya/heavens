@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../functions.php';
 require_admin();
-require_login_and_redirect();
 
 // 🔐 Hanya admin yang boleh mengakses
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {

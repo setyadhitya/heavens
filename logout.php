@@ -3,6 +3,7 @@ session_start();
 
 // Hapus semua data sesi
 $_SESSION = [];
+unset($_SESSION['redirect_to']);
 
 // Hapus cookie sesi di browser (jika ada)
 if (ini_get("session.use_cookies")) {

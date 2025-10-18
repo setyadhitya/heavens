@@ -3,7 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once __DIR__ . '/../functions.php';
-require_login_and_redirect();
 
 // 🔐 Hanya admin yang boleh memproses
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {

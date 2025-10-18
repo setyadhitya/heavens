@@ -27,15 +27,15 @@ if (session_status() === PHP_SESSION_NONE) {
                     </ul>
                 </li>
 
-                <li class="nav-item"><a class="nav-link" href="/heavens/praktikum/praktikum.php">Praktikum</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/modul/modul.php">Modul</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/isi_modul/isi_modul.php">Isi Modul</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/rekap/rekap.php">Rekap Presensi</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/assisten/assisten.php">Asisten</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/assisten_praktikum/assisten.php">Asisten Praktikum</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/praktikan/praktikan.php">Praktikan</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/peserta/peserta.php">Peserta Praktikum</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/approve/approve.php">Approve Praktikan</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/praktikum">Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/modul">Modul</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/isi_modul">Isi Modul</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/rekap">Rekap Presensi</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/assisten">Asisten</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/assisten_praktikum">Asisten Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/praktikan">Praktikan</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/peserta">Peserta Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/approve">Approve Praktikan</a></li>
 
             </ul>
 
