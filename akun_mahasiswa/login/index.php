@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
                         } else {
                             // Login sukses
                             session_regenerate_id(true);
-                            $_SESSION['user_id'] = (int)$row['id'];
+                            $_SESSION['user_id'] = (int) $row['id'];
                             $_SESSION['user_nama'] = $row['nama'];
                             $_SESSION['role'] = 'praktikan';
                             $_SESSION['last_activity'] = time();
@@ -86,7 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
                             $_SESSION['user_nomorhp'] = $row['nomorhp'];
 
                             // Reset percobaan gagal
-                            if (isset($_SESSION['failed_login'])) unset($_SESSION['failed_login']);
+                            if (isset($_SESSION['failed_login']))
+                                unset($_SESSION['failed_login']);
 
                             // Redirect aman (internal only)
                             // Gunakan safe_redirect jika redirect berasal dari input/param
@@ -123,52 +124,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
 ?>
 <!doctype html>
 <html lang="id">
+
 <head>
-  <meta charset="utf-8">
-  <title>Login Praktikan</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Login Praktikan</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
 
-<?php
-// Tampilkan flash (flash diset oleh access_guard atau proses lain)
-show_flash();
-?>
+    <?php
+    // Tampilkan flash (flash diset oleh access_guard atau proses lain)
+    show_flash();
+    ?>
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-  <div class="card shadow" style="width:380px">
-    <div class="card-body">
-      <h4 class="text-center mb-3">Login Praktikan</h4>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow" style="width:380px">
+            <div class="card-body">
+                <h4 class="text-center mb-3">Login Praktikan</h4>
 
-      <?php foreach ($errors as $err): ?>
-        <div class="alert alert-danger"><?= e($err); ?></div>
-      <?php endforeach; ?>
+                <?php foreach ($errors as $err): ?>
+                    <div class="alert alert-danger"><?= e($err); ?></div>
+                <?php endforeach; ?>
 
-      <form method="post" novalidate>
-        <input type="hidden" name="csrf_token" value="<?= e(csrf_token()); ?>">
-        <input type="hidden" name="redirect" value="<?= e($redirect); ?>">
+                <form method="post" novalidate>
+                    <input type="hidden" name="csrf_token" value="<?= e(csrf_token()); ?>">
+                    <input type="hidden" name="redirect" value="<?= e($redirect); ?>">
 
-        <div class="mb-3">
-          <label class="form-label">Username</label>
-          <input type="text" name="username" class="form-control" required autofocus>
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" required autofocus>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+
+                    <button class="btn btn-primary w-100">Masuk</button>
+                </form>
+                
+                <div class="text-center mt-3">
+                    <span class="small text-muted">Belum punya akun?
+                        <a href="/heavens/akun_mahasiswa/daftar/index.php">Daftar disini</a>
+                    </span>
+                </div>
+
+                <div class="text-center mt-3">
+                    <a class="small text-muted" href="/heavens/index.php">&larr; Kembali ke halaman utama</a>
+                </div>
+            </div>
         </div>
-
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          <input type="password" name="password" class="form-control" required>
-        </div>
-
-        <button class="btn btn-primary w-100">Masuk</button>
-      </form>
-
-      <div class="text-center mt-3">
-        <a class="small text-muted" href="/heavens/index.php">&larr; Kembali ke halaman utama</a>
-      </div>
     </div>
-  </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
