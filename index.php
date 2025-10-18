@@ -40,7 +40,7 @@
   <div class="row g-3 justify-content-center">
 
     <div class="col-6 col-md-4">
-      <a href="jadwal.php" class="text-decoration-none text-dark">
+      <a href="./jadwal/index.php" class="text-decoration-none text-dark">
         <div class="menu-card text-center">
           <i class="bi bi-calendar3 display-6 text-primary"></i>
           <div class="fw-semibold mt-2">Jadwal Praktikum</div>

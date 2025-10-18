@@ -1,7 +1,7 @@
 <?php
 // Public page – read-only
 // Pastikan file ini bisa akses koneksi $mysqli
-require_once __DIR__ . '/fatman/functions.php';
+require_once __DIR__ . '/../fatman/functions.php';
 
 $hari_list  = ['senin'=>'Senin','selasa'=>'Selasa','rabu'=>'Rabu','kamis'=>'Kamis','jumat'=>'Jumat'];
 $shift_list = ['Shift I','Shift II','Shift III','Shift IV','Shift V'];

@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-require_once __DIR__ . '/fatman/functions.php';
+require_once __DIR__ . '/../fatman/functions.php';
 
 $id = (int)($_GET['id'] ?? 0);
 if ($id <= 0) { echo json_encode(['error' => 'ID tidak valid']); exit; }
