@@ -18,5 +18,5 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Arahkan kembali ke halaman login
-header("Location: /heavens/login.php");
+header("Location: /heavens/fatman/login.php");
 exit;

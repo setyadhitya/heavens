@@ -46,7 +46,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </span>
                 </li>
                 <li class="nav-item">
-                    <a href="/heavens/logout.php" class="btn btn-outline-light btn-sm">Logout</a>
+                    <a href="/heavens/fatman/logout.php" class="btn btn-outline-light btn-sm">Logout</a>
                 </li>
             </ul>
         </div>

@@ -1,6 +1,10 @@
 
 <?php
+
 require_once __DIR__ . '/functions.php';
+block_folder_by_role('fatman');
+
+
 
 // ✅ Jika belum login, alihkan ke login.php
 if (!is_logged_in()) {
@@ -20,6 +24,7 @@ include 'navbar.php';
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+  <?php show_flash(); ?>
   <div class="container mt-4">
     <div class="card shadow-sm">
       <div class="card-body">

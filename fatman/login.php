@@ -35,7 +35,7 @@ $stmt = $mysqli->prepare("SELECT id, password_hash, nama, role FROM users WHERE 
         unset($_SESSION['redirect_to']);
         header("Location: " . $redirect);
     } else {
-        header("Location: /heavens/index.php");
+        header("Location: /heavens/fatman/index.php");
     }
     exit;
 }
