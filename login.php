@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    $stmt = $mysqli->prepare("SELECT id, password_hash, nama FROM users WHERE username = ?");
+$stmt = $mysqli->prepare("SELECT id, password_hash, nama, role FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_regenerate_id(true);
     $_SESSION['user_id'] = $row['id'];
     $_SESSION['user_nama'] = $row['nama'];
+    $_SESSION['role'] = $row['role']; // ⬅️ simpan role
     $_SESSION['last_activity'] = time();
 
     // 🔄 Jika ada redirect_to, arahkan ke sana

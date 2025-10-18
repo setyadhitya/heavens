@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="dashboard.php">Heavens</a>
+        <a class="navbar-brand" href="index.php">Heavens</a>
 
         <!-- Tombol toggle untuk mode HP -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -41,7 +41,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li class="nav-item"><a class="nav-link" href="assisten_praktikum.php">Asisten Praktikum</a></li>
                 <li class="nav-item"><a class="nav-link" href="praktikan.php">Praktikan</a></li>
                 <li class="nav-item"><a class="nav-link" href="peserta_praktikum.php">Peserta Praktikum</a></li>
-                <li class="nav-item"><a class="nav-link" href="approve_praktikan.php">Approve Praktikan</a></li>
+                <li class="nav-item"><a class="nav-link" href="../approve/approve.php">Approve Praktikan</a></li>
             </ul>
 
             <!-- Info user & logout -->

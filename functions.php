@@ -99,3 +99,11 @@ function require_login_and_redirect() {
     }
 }
 
+function require_admin() {
+    require_login(); // pastikan sudah login dulu
+    if (empty($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+        http_response_code(403);
+        die('<div style="padding:20px;color:white;background:red;">Akses ditolak! Halaman ini hanya untuk ADMIN.</div>');
+    }
+}
+?>
