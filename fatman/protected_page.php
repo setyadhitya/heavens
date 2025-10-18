@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/functions.php';
-require_login_and_redirect();
+
 ?>
 <!doctype html>
 <html><head><meta charset="utf-8"><title>Protected</title></head><body>

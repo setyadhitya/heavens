@@ -76,7 +76,7 @@
     </div>
 
     <div class="col-6 col-md-4">
-      <a href="akun_mahasiswa.php" class="text-decoration-none text-dark">
+      <a href="./akun_mahasiswa/index.php" class="text-decoration-none text-dark">
         <div class="menu-card text-center">
           <i class="bi bi-person-vcard display-6 text-info"></i>
           <div class="fw-semibold mt-2">Akun Mahasiswa</div>

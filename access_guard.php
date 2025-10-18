@@ -49,7 +49,7 @@ if (!$role) {
     // praktikan folder
     if (strpos($uri, '/heavens/akun_mahasiswa/') === 0) {
         set_flash('Silakan login terlebih dahulu.', 'warning');
-        header('Location: /heavens/akun_mahasiswa/login.php');
+        header('Location: /heavens/akun_mahasiswa/login/index.php');
         exit;
     }
     // selain itu biarkan ke beranda
