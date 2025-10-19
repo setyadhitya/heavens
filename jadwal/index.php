@@ -191,7 +191,7 @@ document.addEventListener('click', async (e) => {
 
     titleEl.textContent = data.mata_kuliah || 'Detail Praktikum';
 
-    const asisten = (data.asisten && data.asisten.length) ? data.asisten.join(', ') : '-';
+    const assisten = (data.assisten && data.assisten.length) ? data.assisten.join(', ') : '-';
     const pesertaCount = (data.peserta && data.peserta.length) ? data.peserta.length : 0;
     const pesertaList = (data.peserta && data.peserta.length)
       ? '<ol class="mb-0"><li>' + data.peserta.map(escapeHtml).join('</li><li>') + '</li></ol>'
@@ -206,7 +206,7 @@ document.addEventListener('click', async (e) => {
           <div class="mb-2"><strong>Hari:</strong> ${escapeHtml(capitalize(data.hari || '-'))}</div>
           <div class="mb-2"><strong>Shift:</strong> ${escapeHtml(data.shift || '-')}</div>
           <div class="mb-2"><strong>Jam:</strong> ${escapeHtml((data.jam_mulai || '-') + ' - ' + (data.jam_ahir || '-'))}</div>
-          <div class="mb-2"><strong>Asisten:</strong> ${escapeHtml(asisten)}</div>
+          <div class="mb-2"><strong>Assisten:</strong> ${escapeHtml(assisten)}</div>
         </div>
         <div class="col-md-6">
           <div class="mb-2"><strong>Peserta:</strong> ${pesertaCount}</div>

@@ -4,15 +4,15 @@ date_default_timezone_set('Asia/Jakarta');
 
 require_once __DIR__ . '/../../fatman/functions.php';
 
-// ===== AUTH (login asisten) =====
+// ===== AUTH (login assisten) =====
 if (!is_logged_in()) {
-    set_flash('Silakan login sebagai asisten terlebih dahulu.', 'warning');
+    set_flash('Silakan login sebagai assisten terlebih dahulu.', 'warning');
     header('Location: /heavens/akun_assisten/login/');
     exit;
 }
 $assisten_id = (int)($_SESSION['user_id'] ?? 0);
 if (!$assisten_id) {
-    set_flash('Sesi asisten tidak valid.', 'danger');
+    set_flash('Sesi assisten tidak valid.', 'danger');
     header('Location: /heavens/akun_assisten/login/');
     exit;
 }
@@ -21,7 +21,7 @@ $pdo = db();
 $errors = [];
 $success = null;
 
-// ===== Ambil daftar praktikum yang diampu asisten =====
+// ===== Ambil daftar praktikum yang diampu assisten =====
 try {
     $q = $pdo->prepare("
         SELECT 
@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// ===== Ambil daftar tugas yang dibuat oleh asisten ini =====
+// ===== Ambil daftar tugas yang dibuat oleh assisten ini =====
 try {
     $q2 = $pdo->prepare("
         SELECT 

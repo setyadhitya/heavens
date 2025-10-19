@@ -2,9 +2,9 @@
 // heavens/akun_assisten/aktivitas/nilai/detail.php
 require_once __DIR__ . '/../../../fatman/functions.php';
 
-// ===== AUTH (khusus asisten) =====
+// ===== AUTH (khusus assisten) =====
 if (!is_logged_in() || ($_SESSION['role'] ?? '') !== 'assisten') {
-    set_flash('Silakan login sebagai asisten terlebih dahulu.', 'warning');
+    set_flash('Silakan login sebagai assisten terlebih dahulu.', 'warning');
     header('Location: /heavens/akun_assisten/login/');
     exit;
 }
@@ -20,7 +20,7 @@ if ($praktikum_id <= 0 || $tugas_id <= 0) {
     exit;
 }
 
-// ===== Validasi akses praktikum oleh asisten =====
+// ===== Validasi akses praktikum oleh assisten =====
 $stmt = $pdo->prepare("
     SELECT 
         p.id AS praktikum_id,

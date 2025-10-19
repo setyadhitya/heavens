@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="header shadow-sm d-flex justify-content-between align-items-center">
     <div>
       <h4 class="mb-1"><i class="bi bi-qr-code"></i> Presensi Praktikum</h4>
-      <div class="small">Masukkan kode presensi dari asisten. Kode aktif selama 5 menit sejak dibuat.</div>
+      <div class="small">Masukkan kode presensi dari assisten. Kode aktif selama 5 menit sejak dibuat.</div>
     </div>
     <a href="/heavens/akun_mahasiswa/" class="btn btn-light btn-sm"><i class="bi bi-house"></i> Dashboard</a>
   </div>
@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="mb-3">
               <label class="form-label">Kode Presensi</label>
               <input type="text" name="kode" class="form-control code-input" maxlength="5" pattern="[A-Za-z0-9]{1,5}" placeholder="mis. 4h5x9" required oninput="this.value=this.value.toLowerCase()">
-              <div class="small-muted mt-1">Gunakan kode yang diberikan asisten. Hanya huruf/angka, tanpa spasi.</div>
+              <div class="small-muted mt-1">Gunakan kode yang diberikan assisten. Hanya huruf/angka, tanpa spasi.</div>
             </div>
 
             <div class="mb-3">

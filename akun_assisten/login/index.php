@@ -10,7 +10,7 @@ if (is_logged_in()) {
         header('Location: /heavens/akun_assisten/');
         exit;
     }
-    set_flash("Anda sudah login. Halaman login asisten hanya untuk akun asisten.", "warning");
+    set_flash("Anda sudah login. Halaman login assisten hanya untuk akun assisten.", "warning");
     if (!empty($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         header('Location: /heavens/fatman/index.php'); exit;
     }
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<title>Login Asisten</title>
+<title>Login Assisten</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="card shadow" style="width:380px">
     <div class="card-body">
-      <h4 class="text-center mb-3">Login Asisten</h4>
+      <h4 class="text-center mb-3">Login Assisten</h4>
 
       <?php foreach ($errors as $err): ?>
         <div class="alert alert-danger"><?= e($err); ?></div>

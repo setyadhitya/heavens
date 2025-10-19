@@ -12,10 +12,10 @@ function js_alert_redirect(string $msg, string $to) {
 // ===== AUTH =====
 $assisten_id = $_SESSION['user_id'] ?? null;
 if (!$assisten_id) {
-    js_alert_redirect('Silakan login sebagai asisten terlebih dahulu.', '/heavens/akun_assisten/login/');
+    js_alert_redirect('Silakan login sebagai assisten terlebih dahulu.', '/heavens/akun_assisten/login/');
 }
 
-$nama     = $_SESSION['user_nama']    ?? 'Asisten';
+$nama     = $_SESSION['user_nama']    ?? 'Assisten';
 $nim      = $_SESSION['user_nim']     ?? '-';
 $nomorhp  = $_SESSION['user_nomorhp'] ?? '-';
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$praktikum_id) js_alert_redirect('Silakan pilih praktikum.', './index.php');
 
-    // Pastikan praktikum milik asisten
+    // Pastikan praktikum milik assisten
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM tb_assisten_praktikum WHERE assisten_id = ? AND praktikum_id = ?");
     $stmt->execute([$assisten_id, $praktikum_id]);
     if ((int)$stmt->fetchColumn() === 0) js_alert_redirect('Anda tidak terdaftar pada praktikum tersebut.', './index.php');
@@ -153,7 +153,7 @@ body { background:#f4f6f9; }
       <div class="card shadow-sm">
         <div class="card-body p-4">
           <div class="mb-3">
-            <div class="fw-semibold">Halo, <?= e($nama) ?> (Asisten)</div>
+            <div class="fw-semibold">Halo, <?= e($nama) ?> (Assisten)</div>
             <div class="small-muted">NIM: <?= e($nim) ?> | No. HP: <?= e($nomorhp) ?></div>
           </div>
 

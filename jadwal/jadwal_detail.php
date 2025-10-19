@@ -22,8 +22,8 @@ $head = $detail->get_result()->fetch_assoc();
 
 if (!$head) { echo json_encode(['error'=>'Data tidak ditemukan']); exit; }
 
-// Ambil asisten
-$asisten = [];
+// Ambil assisten
+$assisten = [];
 $qa = $mysqli->prepare("
   SELECT a.nama
   FROM tb_assisten_praktikum ap
@@ -34,7 +34,7 @@ $qa = $mysqli->prepare("
 $qa->bind_param("i", $id);
 $qa->execute();
 $ra = $qa->get_result();
-while ($row = $ra->fetch_assoc()) { $asisten[] = $row['nama']; }
+while ($row = $ra->fetch_assoc()) { $assisten[] = $row['nama']; }
 
 // Ambil peserta
 $peserta = [];
@@ -52,6 +52,6 @@ while ($row = $rp->fetch_assoc()) { $peserta[] = $row['nama']; }
 
 // Output
 echo json_encode(array_merge($head, [
-  'asisten' => $asisten,
+  'assisten' => $assisten,
   'peserta' => $peserta
 ]));

@@ -15,7 +15,7 @@ if ($praktikum_id <= 0 || $tugas_id <= 0) {
     die("Parameter tidak valid.");
 }
 
-// Validasi akses asisten
+// Validasi akses assisten
 $stmt = $pdo->prepare("
     SELECT p.id, m.mata_kuliah, p.kelas
     FROM tb_assisten_praktikum ap

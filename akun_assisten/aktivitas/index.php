@@ -2,9 +2,9 @@
 // heavens/akun_assisten/aktivitas/index.php
 require_once __DIR__ . '/../../fatman/functions.php';
 
-// ===== AUTH (khusus asisten) =====
+// ===== AUTH (khusus assisten) =====
 if (!is_logged_in() || ($_SESSION['role'] ?? '') !== 'assisten') {
-    set_flash('Silakan login sebagai asisten terlebih dahulu.', 'warning');
+    set_flash('Silakan login sebagai assisten terlebih dahulu.', 'warning');
     header('Location: /heavens/akun_assisten/login/');
     exit;
 }
@@ -12,7 +12,7 @@ if (!is_logged_in() || ($_SESSION['role'] ?? '') !== 'assisten') {
 $pdo = db();
 $assisten_id = (int)($_SESSION['user_id'] ?? 0);
 
-// ===== Ambil daftar praktikum yang diampu asisten =====
+// ===== Ambil daftar praktikum yang diampu assisten =====
 $stmt = $pdo->prepare("
     SELECT 
         p.id AS praktikum_id,
@@ -46,7 +46,7 @@ function get_total_pertemuan($pdo, $praktikum_id) {
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Aktivitas Asisten</title>
+<title>Aktivitas Assisten</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <style>

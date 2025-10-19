@@ -215,7 +215,7 @@ function renderSelected() {
   listContainer.innerHTML = '';
   [...selectedSet].forEach(id => {
     const opt = assistenSelect.querySelector(`option[value="${id}"]`);
-    const text = opt ? opt.textContent : 'Asisten #' + id;
+    const text = opt ? opt.textContent : 'Assisten #' + id;
     const li = document.createElement('li');
     li.className = 'list-group-item d-flex justify-content-between align-items-center';
     li.innerHTML = `<span>${text}</span><button type="button" class="btn btn-sm btn-outline-danger" data-id="${id}">Hapus</button>`;
@@ -254,13 +254,13 @@ async function loadAssistenEdit(id) {
 
 document.getElementById('btnEditAddAssisten').onclick = async () => {
   const praktikumId = document.getElementById('edit_id').value;
-  const asistenId = document.getElementById('edit_assisten_select').value;
-  if (!asistenId) return;
+  const assistenId = document.getElementById('edit_assisten_select').value;
+  if (!assistenId) return;
   const form = new FormData();
   form.append('action','add_praktikum_assisten');
   form.append('csrf_token','<?= e(csrf_token()) ?>');
   form.append('praktikum_id', praktikumId);
-  form.append('assisten_id', asistenId);
+  form.append('assisten_id', assistenId);
   await fetch('praktikum_action.php',{method:'POST',body:form});
   loadAssistenEdit(praktikumId);
 };

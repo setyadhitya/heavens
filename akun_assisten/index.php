@@ -8,7 +8,7 @@ require_once __DIR__ . '/../fatman/functions.php';
 // karena sudah otomatis dijalankan melalui .htaccess (auto_prepend_file)
 
 // Ambil data user dari session
-$nama     = $_SESSION['user_nama'] ?? 'Asisten';
+$nama     = $_SESSION['user_nama'] ?? 'Assisten';
 $nim      = $_SESSION['user_nim'] ?? '-';
 $nomorhp  = $_SESSION['user_nomorhp'] ?? '-';
 $status   = 'aktif';
@@ -17,7 +17,7 @@ $status   = 'aktif';
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Halaman Asisten - <?= e($nama); ?></title>
+<title>Halaman Assisten - <?= e($nama); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -36,7 +36,7 @@ a.text-dark { text-decoration:none; }
 
 <div class="container">
     <div class="header shadow-sm">
-        <h3 class="mb-2">Halaman Asisten</h3>
+        <h3 class="mb-2">Halaman Assisten</h3>
         <div class="small">Halo, <strong><?= e($nama); ?></strong></div>
         <div class="small">NIM: <?= e($nim); ?> | No. HP: <?= e($nomorhp); ?></div>
         <div class="small">Status: <?= e($status); ?></div>
@@ -80,7 +80,7 @@ a.text-dark { text-decoration:none; }
         </div>
 
         <div class="col-6 col-md-4">
-            <a href="/heavens/akun_assisten/akun.php" class="text-dark">
+            <a href="/heavens/akun_assisten/akun/index.php" class="text-dark">
                 <div class="card p-3 card-menu text-center">
                     <i class="bi bi-person-circle display-6 text-info"></i>
                     <div class="fw-semibold mt-2">Akun</div>

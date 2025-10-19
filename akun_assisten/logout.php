@@ -2,7 +2,7 @@
 // /heavens/akun_assisten/logout.php
 require_once __DIR__ . '/../fatman/functions.php';
 
-// Kalau mau logout khusus asisten saja tanpa ganggu user lain, pastikan role-nya asisten.
+// Kalau mau logout khusus assisten saja tanpa ganggu user lain, pastikan role-nya assisten.
 // Kalau tidak peduli (logout global), biarkan seperti ini.
 $_SESSION = [];
 if (ini_get("session.use_cookies")) {
@@ -14,6 +14,6 @@ if (ini_get("session.use_cookies")) {
 }
 session_destroy();
 
-// Kembali ke login asisten
+// Kembali ke login assisten
 header('Location: /heavens/akun_assisten/login/index.php');
 exit;

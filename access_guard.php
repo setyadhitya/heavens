@@ -43,7 +43,7 @@ if (!$role) {
         header('Location: /heavens/fatman/login.php');
         exit;
     }
-    // asisten folder
+    // assisten folder
     if (strpos($uri, '/heavens/akun_assisten/') === 0) {
         set_flash('Silakan login terlebih dahulu.', 'warning');
         header('Location: /heavens/akun_assisten/login/index.php');

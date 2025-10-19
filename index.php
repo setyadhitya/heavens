@@ -70,7 +70,7 @@
       <a href="./akun_assisten/index.php" class="text-decoration-none text-dark">
         <div class="menu-card text-center">
           <i class="bi bi-people-fill display-6 text-warning"></i>
-          <div class="fw-semibold mt-2">Akun Asisten</div>
+          <div class="fw-semibold mt-2">Akun Assisten</div>
         </div>
       </a>
     </div>

@@ -12,7 +12,7 @@ function js_alert_redirect(string $msg, string $to) {
 
 $assisten_id = $_SESSION['user_id'] ?? null;
 if (!$assisten_id) {
-    js_alert_redirect('Silakan login sebagai asisten terlebih dahulu.', '/heavens/akun_assisten/login/');
+    js_alert_redirect('Silakan login sebagai assisten terlebih dahulu.', '/heavens/akun_assisten/login/');
 }
 
 $pdo = db();
@@ -24,7 +24,7 @@ if (!$kid) js_alert_redirect('Parameter tidak valid.', '/heavens/akun_assisten/i
  * Dipanggil oleh JS ketika countdown mencapai 0
  */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'expire') {
-    // pastikan kode milik asisten ini
+    // pastikan kode milik assisten ini
     $stmt = $pdo->prepare("SELECT generated_by_assisten_id, status FROM tb_kode_presensi WHERE id = ?");
     $stmt->execute([$kid]);
     $row = $stmt->fetch();
