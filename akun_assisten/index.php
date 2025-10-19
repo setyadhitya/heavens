@@ -62,7 +62,7 @@ a.text-dark { text-decoration:none; }
         </div>
 
         <div class="col-6 col-md-4">
-            <a href="/heavens/akun_assisten/aktivitas.php" class="text-dark">
+            <a href="/heavens/akun_assisten/aktivitas/index.php" class="text-dark">
                 <div class="card p-3 card-menu text-center">
                     <i class="bi bi-list-task display-6 text-success"></i>
                     <div class="fw-semibold mt-2">Aktivitas</div>
