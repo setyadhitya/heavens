@@ -34,7 +34,7 @@
 
   <div class="hero shadow-sm">
     <h2 class="fw-bold mb-1">Sys-ASLPDC-T2B2</h2>
-    <p class="mb-0 small">Sistem Akses Seluruh Layanan Praktikum Cepat, Terintegrasi, Tanpa Basa-Basi</p>
+    <p class="mb-0 small">Sistem Akses Seluruh Layanan Praktikum Dengan Cepat, Terintegrasi, Tanpa Basa-Basi</p>
   </div>
 
   <div class="row g-3 justify-content-center">
