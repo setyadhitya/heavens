@@ -53,7 +53,7 @@ a.text-dark { text-decoration:none; }
         </div>
 
         <div class="col-6 col-md-4">
-            <a href="/heavens/akun_assisten/penugasan.php" class="text-dark">
+            <a href="/heavens/akun_assisten/beri_tugas/index.php" class="text-dark">
                 <div class="card p-3 card-menu text-center">
                     <i class="bi bi-file-earmark-text display-6 text-danger"></i>
                     <div class="fw-semibold mt-2">Penugasan</div>
