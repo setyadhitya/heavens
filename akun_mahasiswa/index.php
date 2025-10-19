@@ -80,7 +80,7 @@ a.text-dark { text-decoration:none; }
         </div>
 
         <div class="col-6 col-md-4">
-            <a href="/heavens/akun_mahasiswa/akun.php" class="text-dark">
+            <a href="/heavens/akun_mahasiswa/akun/index.php" class="text-dark">
                 <div class="card p-3 card-menu text-center">
                     <i class="bi bi-person-circle display-6 text-info"></i>
                     <div class="fw-semibold mt-2">Akun</div>
