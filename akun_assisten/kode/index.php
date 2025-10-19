@@ -49,7 +49,7 @@ try {
             p.hari
         FROM tb_assisten_praktikum ap
         JOIN tb_praktikum p ON p.id = ap.praktikum_id
-        JOIN tb_matkul m    ON m.id = p.mata_kuliah
+        JOIN tb_matkul m ON m.id = p.mata_kuliah
         WHERE ap.assisten_id = ?
         ORDER BY m.mata_kuliah ASC
     ");
@@ -161,7 +161,6 @@ body { background:#f4f6f9; }
             <div class="alert alert-warning">Anda belum terdaftar pada praktikum manapun. Hubungi koordinator untuk penugasan.</div>
             <a href="/heavens/akun_assisten/index.php" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Kembali</a>
           <?php else: ?>
-
           <form method="post" onsubmit="return ensureLocation()">
             <div class="mb-3">
               <label class="form-label">Mata Kuliah / Praktikum</label>
@@ -215,7 +214,6 @@ body { background:#f4f6f9; }
               <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle"></i> Buat Kode</button>
             </div>
           </form>
-
           <?php endif; ?>
         </div>
       </div>

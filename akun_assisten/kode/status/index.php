@@ -19,6 +19,31 @@ $pdo = db();
 $kid = (int)($_GET['kid'] ?? 0);
 if (!$kid) js_alert_redirect('Parameter tidak valid.', '/heavens/akun_assisten/index.php');
 
+/**
+ * ========== AJAX expire handler ==========
+ * Dipanggil oleh JS ketika countdown mencapai 0
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'expire') {
+    // pastikan kode milik asisten ini
+    $stmt = $pdo->prepare("SELECT generated_by_assisten_id, status FROM tb_kode_presensi WHERE id = ?");
+    $stmt->execute([$kid]);
+    $row = $stmt->fetch();
+
+    header('Content-Type: application/json');
+    if (!$row || (int)$row['generated_by_assisten_id'] !== (int)$assisten_id) {
+        http_response_code(403);
+        echo json_encode(['ok' => false, 'msg' => 'Forbidden']);
+        exit;
+    }
+
+    if ($row['status'] === 'aktif') {
+        $u = $pdo->prepare("UPDATE tb_kode_presensi SET status='expired' WHERE id=?");
+        $u->execute([$kid]);
+    }
+    echo json_encode(['ok' => true]);
+    exit;
+}
+
 // Ambil data kode + JOIN mata kuliah
 $stmt = $pdo->prepare("
     SELECT
@@ -27,7 +52,7 @@ $stmt = $pdo->prepare("
         m.mata_kuliah
     FROM tb_kode_presensi k
     JOIN tb_praktikum p ON p.id = k.praktikum_id
-    JOIN tb_matkul m    ON m.id = p.mata_kuliah
+    JOIN tb_matkul m ON m.id = p.mata_kuliah
     WHERE k.id = ?
 ");
 $stmt->execute([$kid]);
@@ -40,18 +65,18 @@ if ((int)$kode['generated_by_assisten_id'] !== (int)$assisten_id) {
 
 // Hitung sisa waktu server-side (5 menit)
 $created_ts = strtotime($kode['created_at']);
+// TOTAL DALAM DETIK -> 5 menit = 5 * 60
+$total_seconds = 5 * 60;
 $elapsed = time() - $created_ts;
-$total   = 5; // 5 menit
-$remain  = max(0, $total - $elapsed); // Tidak akan pernah negatif atau meledak lagi
+$remain  = max(0, $total_seconds - $elapsed);
 
-
-// Jika sudah kadaluarsa, set expired & redirect
+// Jika sudah kadaluarsa atau status bukan aktif, set expired & redirect
 if ($remain <= 0 || $kode['status'] !== 'aktif') {
     if ($kode['status'] === 'aktif') {
         $u = $pdo->prepare("UPDATE tb_kode_presensi SET status='expired' WHERE id=?");
         $u->execute([$kid]);
     }
-    js_alert_redirect('kode presensi sudah kadaluarsa', '/heavens/akun_assisten/index.php');
+    js_alert_redirect('Kode presensi sudah kadaluarsa.', '/heavens/akun_assisten/index.php');
 }
 
 // Format untuk JS (pastikan integer)
@@ -134,7 +159,7 @@ body{ background:#f4f6f9; }
 </div>
 
 <script>
-// Remaining seconds dari server
+// Remaining seconds dari server (integer)
 let remain = <?= $remain ?>;
 
 // Format ke mm:ss
@@ -147,11 +172,25 @@ function toMMSS(sec) {
 const el = document.getElementById('countdown');
 el.textContent = toMMSS(remain);
 
+// Panggil server untuk menandai expired
+function markExpiredThenRedirect() {
+  // POST ke halaman yang sama (action=expire)
+  const form = new URLSearchParams();
+  form.append('action', 'expire');
+  fetch(location.pathname + location.search, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: form.toString()
+  }).finally(() => {
+    alert('Kode presensi sudah kadaluarsa');
+    window.location.href = '/heavens/akun_assisten/index.php';
+  });
+}
+
 function tick(){
   remain--;
   if (remain <= 0) {
-    alert('kode presensi sudah kadaluarsa');
-    window.location.href = '/heavens/akun_assisten/index.php';
+    markExpiredThenRedirect();
     return;
   }
   el.textContent = toMMSS(remain);
@@ -159,10 +198,9 @@ function tick(){
 }
 setTimeout(tick, 1000);
 
-// Fallback hard redirect (server truth)
+// Fallback hard redirect (server truth) sedikit lebih lama dari sisa waktu
 setTimeout(function(){
-  alert('kode presensi sudah kadaluarsa');
-  window.location.href = '/heavens/akun_assisten/index.php';
+  markExpiredThenRedirect();
 }, (remain + 2) * 1000);
 </script>
 </body>
