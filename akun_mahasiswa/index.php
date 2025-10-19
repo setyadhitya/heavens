@@ -47,7 +47,7 @@ a.text-dark { text-decoration:none; }
             <a href="/heavens/akun_mahasiswa/kode/index.php" class="text-dark">
                 <div class="card p-3 card-menu text-center bg-white">
                     <i class="bi bi-qr-code display-6 text-primary"></i>
-                    <div class="fw-semibold mt-2">Buat Kode Presensi</div>
+                    <div class="fw-semibold mt-2">Presensi</div>
                 </div>
             </a>
         </div>
@@ -62,7 +62,7 @@ a.text-dark { text-decoration:none; }
         </div>
 
         <div class="col-6 col-md-4">
-            <a href="/heavens/akun_mahasiswa/aktivitas.php" class="text-dark">
+            <a href="/heavens/akun_mahasiswa/aktivitas/index.php" class="text-dark">
                 <div class="card p-3 card-menu text-center">
                     <i class="bi bi-list-task display-6 text-success"></i>
                     <div class="fw-semibold mt-2">Aktivitas</div>
@@ -71,7 +71,7 @@ a.text-dark { text-decoration:none; }
         </div>
 
         <div class="col-6 col-md-4">
-            <a href="/heavens/akun_mahasiswa/pengumuman.php" class="text-dark">
+            <a href="#" class="text-dark">
                 <div class="card p-3 card-menu text-center">
                     <i class="bi bi-megaphone display-6 text-warning"></i>
                     <div class="fw-semibold mt-2">Pengumuman</div>
