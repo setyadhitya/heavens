@@ -44,7 +44,7 @@ a.text-dark { text-decoration:none; }
 
     <div class="row g-3 justify-content-center">
         <div class="col-6 col-md-4">
-            <a href="/heavens/akun_assisten/buat_kode_presensi.php" class="text-dark">
+            <a href="/heavens/akun_assisten/kode/index.php" class="text-dark">
                 <div class="card p-3 card-menu text-center bg-white">
                     <i class="bi bi-qr-code display-6 text-primary"></i>
                     <div class="fw-semibold mt-2">Buat Kode Presensi</div>

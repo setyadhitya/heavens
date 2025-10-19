@@ -130,3 +130,11 @@ function show_flash() {
  * ❌ HAPUS fungsi block_folder_by_role()
  * (Sekarang proteksi role ditangani otomatis oleh access_guard.php via auto_prepend_file)
  */
+// ==========================
+// DATABASE HELPER (PDO)
+// ==========================
+function db() {
+    // gunakan koneksi $pdo dari config.php
+    global $pdo;
+    return $pdo;
+}

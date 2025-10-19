@@ -1,24 +1,45 @@
 <?php
-// config.php - update with your DB credentials
+// ==========================
+// CONFIG DATABASE
+// ==========================
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'php_login');
 
-ini_set('display_errors', 0);
+// ==========================
+// DEBUG MODE
+// ==========================
+// Ubah ke `0` kalau sudah live / produksi
+ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Start secure session settings
-session_name('php_login_sess');
-session_start([
-    'cookie_httponly' => true,
-// 'cookie_secure' => true, // uncomment on HTTPS
-    'cookie_samesite' => 'Lax',
-]);
-
-// Database connection
-$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-if ($mysqli->connect_errno) {
-    die("DB connection failed: " . $mysqli->connect_error);
+// ==========================
+// SESSION SETTINGS
+if (session_status() === PHP_SESSION_NONE) {
+    session_name('php_login_sess'); // set name DULU
+    session_start([
+        'cookie_httponly' => true,
+        'cookie_samesite' => 'Lax',
+    ]);
 }
-$mysqli->set_charset('utf8mb4');
+
+
+
+// ==========================
+// DATABASE CONNECTION (PDO)
+// ==========================
+try {
+    $pdo = new PDO(
+        "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME,
+        DB_USER,
+        DB_PASS,
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Munculkan error (debug)
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Hasil query = array asosiatif
+            PDO::ATTR_EMULATE_PREPARES => false // Query lebih aman
+        ]
+    );
+} catch (PDOException $e) {
+    die("Database Connection Error: " . $e->getMessage());
+}
