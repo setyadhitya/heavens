@@ -71,7 +71,7 @@ a.text-dark { text-decoration:none; }
         </div>
 
         <div class="col-6 col-md-4">
-            <a href="/heavens/akun_assisten/pengumuman.php" class="text-dark">
+            <a href="#" class="text-dark">
                 <div class="card p-3 card-menu text-center">
                     <i class="bi bi-megaphone display-6 text-warning"></i>
                     <div class="fw-semibold mt-2">Pengumuman</div>
