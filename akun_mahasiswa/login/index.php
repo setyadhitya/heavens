@@ -108,33 +108,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="card shadow" style="width:380px">
     <div class="card-body">
-      <h4 class="text-center mb-3">Login Praktikan</h4>
+    <h4 class="text-center mb-3">Login Praktikan</h4>
 
-      <?php foreach ($errors as $err): ?>
+    <?php foreach ($errors as $err): ?>
         <div class="alert alert-danger"><?= e($err); ?></div>
-      <?php endforeach; ?>
+    <?php endforeach; ?>
 
-      <form method="post" novalidate>
+    <form method="post" novalidate>
         <input type="hidden" name="csrf_token" value="<?= e(csrf_token()); ?>">
         <input type="hidden" name="redirect" value="<?= e($redirect); ?>">
 
         <div class="mb-3">
-          <label class="form-label">Username</label>
-          <input type="text" name="username" class="form-control" required autofocus>
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" required autofocus>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Password</label>
-          <input type="password" name="password" class="form-control" required>
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" required>
         </div>
 
         <button class="btn btn-primary w-100">Masuk</button>
-      </form>
+    </form>
 
-      <div class="text-center mt-3">
-        <a class="small text-muted" href="/heavens/index.php">&larr; Kembali ke halaman utama</a>
-      </div>
+    <!-- ✅ Tambahan ini -->
+    <div class="text-center mt-3">
+        <span class="small text-muted">Belum punya akun?</span>
+        <a class="small" href="/heavens/akun_mahasiswa/daftar/index.php">Daftar sekarang</a>
     </div>
+    <!-- ✅ END tambahan -->
+
+    <div class="text-center mt-2">
+        <a class="small text-muted" href="/heavens/index.php">&larr; Kembali ke halaman utama</a>
+    </div>
+</div>
+
   </div>
 </div>
 
