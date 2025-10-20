@@ -49,7 +49,7 @@
     </div>
 
     <div class="col-6 col-md-4">
-      <a href="project.php" class="text-decoration-none text-dark">
+      <a href="./iot/index.php" class="text-decoration-none text-dark">
         <div class="menu-card text-center">
           <i class="bi bi-cpu display-6 text-danger"></i>
           <div class="fw-semibold mt-2">Project IOT</div>
