@@ -22,8 +22,8 @@ if (session_status() === PHP_SESSION_NONE) {
                         Akun
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="akunDropdown">
-                        <li><a class="dropdown-item" href="/heavens/akun.php">Profil</a></li>
-                        <li><a class="dropdown-item" href="/heavens/register.php">Tambah Akun (Register)</a></li>
+                        <li><a class="dropdown-item" href="/heavens/fatman/index.php">Profil</a></li>
+                        <li><a class="dropdown-item" href="/heavens/fatman/register.php">Tambah Akun (Register)</a></li>
                     </ul>
                 </li>
 
