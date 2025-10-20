@@ -1,29 +1,41 @@
 <?php
 // Public page – read-only
-// Pastikan file ini bisa akses koneksi $mysqli
+// Menggunakan koneksi PDO dari functions.php
 require_once __DIR__ . '/../fatman/functions.php';
+$pdo = db();
 
+// Konstanta tampilan hari & shift
 $hari_list  = ['senin'=>'Senin','selasa'=>'Selasa','rabu'=>'Rabu','kamis'=>'Kamis','jumat'=>'Jumat'];
-$shift_list = ['Shift I','Shift II','Shift III','Shift IV','Shift V'];
 
-// Ambil semua jadwal
-$q = $mysqli->query("
-  SELECT p.id, p.hari, p.shift, p.kelas, p.jurusan, p.semester,
-         DATE_FORMAT(p.jam_mulai,'%H:%i') AS jam_mulai,
-         DATE_FORMAT(p.jam_ahir,'%H:%i')  AS jam_ahir,
-         p.catatan,
-         m.mata_kuliah
+// Di DB shift kamu berformat I, II, III, IV, V
+// Kita tampilkan sebagai "Shift I" dst, tapi kunci internal tetap I..V
+$shift_keys  = ['I','II','III','IV','V'];
+$shift_label = ['I'=>'Shift I','II'=>'Shift II','III'=>'Shift III','IV'=>'Shift IV','V'=>'Shift V'];
+
+// Ambil semua jadwal (gabung matkul & jurusan)
+$sql = "
+  SELECT 
+    p.id, p.hari, p.shift, p.kelas, p.jurusan_id, p.semester,
+    DATE_FORMAT(p.jam_mulai,'%H:%i') AS jam_mulai,
+    DATE_FORMAT(p.jam_ahir,'%H:%i')  AS jam_ahir,
+    p.catatan,
+    m.mata_kuliah,
+    j.jurusan
   FROM tb_praktikum p
-  JOIN tb_matkul m ON p.mata_kuliah = m.id
+  JOIN tb_matkul   m ON p.mata_kuliah = m.id
+  LEFT JOIN tb_jurusan j ON j.id = p.jurusan_id
   ORDER BY FIELD(p.hari,'senin','selasa','rabu','kamis','jumat'),
-           FIELD(p.shift,'Shift I','Shift II','Shift III','Shift IV','Shift V')
-");
+           FIELD(p.shift,'I','II','III','IV','V')
+";
+$stmt = $pdo->query($sql);
 
-// Susun ke matriks [shift][hari] = row
+// Susun ke matriks [shiftKey][hari] = row
 $grid = [];
-if ($q) {
-  while ($row = $q->fetch_assoc()) {
-    $grid[$row['shift']][$row['hari']] = $row;
+if ($stmt) {
+  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $shiftKey = $row['shift']; // I/II/III/IV/V
+    $hariKey  = $row['hari'];  // senin..jumat
+    $grid[$shiftKey][$hariKey] = $row;
   }
 }
 
@@ -42,8 +54,8 @@ function h($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
 // dapatkan warna semester
 function sem_color($semester, $map) {
-  $semester = (int)$semester;
-  return $map[$semester] ?? '#ffffff';
+  $sem = (int)$semester;
+  return $map[$sem] ?? '#ffffff';
 }
 ?>
 <!doctype html>
@@ -58,23 +70,22 @@ function sem_color($semester, $map) {
     .table th, .table td { vertical-align: middle; text-align: center; }
     .cell-empty { color:#bbb; font-style: italic; }
     .matkul-btn {
-  display: block;
-  width: 100%;
-  padding: 6px;
-  border: none;
-  background: rgba(255,255,255,0.7);
-  border-radius: 6px;
-  font-weight: 600;
-  color: #333;
-  cursor: pointer;
-  transition: 0.2s;
-  text-align: center;
-}
-.matkul-btn:hover {
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-}
-
+      display: block;
+      width: 100%;
+      padding: 6px;
+      border: none;
+      background: rgba(255,255,255,0.7);
+      border-radius: 6px;
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      transition: 0.2s;
+      text-align: center;
+    }
+    .matkul-btn:hover {
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
     .legend .badge { min-width: 90px; }
     .legend-box {
       display:inline-block; width:14px; height:14px; border-radius:3px; margin-right:6px; border:1px solid rgba(0,0,0,.08);
@@ -104,7 +115,7 @@ function sem_color($semester, $map) {
     </div>
   </div>
 
-  <!-- Tabel Jadwal (1 tabel untuk semua semester) -->
+  <!-- Tabel Jadwal -->
   <div class="card shadow-sm">
     <div class="card-body p-0">
       <div class="table-responsive">
@@ -118,12 +129,12 @@ function sem_color($semester, $map) {
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($shift_list as $shift): ?>
+            <?php foreach ($shift_keys as $sKey): ?>
               <tr>
-                <th><?= h($shift); ?></th>
+                <th><?= h($shift_label[$sKey]); ?></th>
                 <?php foreach ($hari_list as $hariKey => $hariLabel): ?>
-                  <?php if (!empty($grid[$shift][$hariKey])): 
-                    $row = $grid[$shift][$hariKey];
+                  <?php if (!empty($grid[$sKey][$hariKey])): 
+                    $row = $grid[$sKey][$hariKey];
                     $bg  = sem_color($row['semester'], $semBg);
                   ?>
                     <td style="background: <?= h($bg); ?>;">
@@ -184,7 +195,7 @@ document.addEventListener('click', async (e) => {
   bodyEl.innerHTML = '<div class="text-center text-muted py-3">Memuat...</div>';
 
   try {
-    const res = await fetch('jadwal_detail.php?id=' + encodeURIComponent(id));
+    const res = await fetch('jadwal_action.php?id=' + encodeURIComponent(id));
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
@@ -204,7 +215,7 @@ document.addEventListener('click', async (e) => {
           <div class="mb-2"><strong>Kelas:</strong> ${escapeHtml(data.kelas || '-')}</div>
           <div class="mb-2"><strong>Semester:</strong> ${escapeHtml(String(data.semester || '-'))}</div>
           <div class="mb-2"><strong>Hari:</strong> ${escapeHtml(capitalize(data.hari || '-'))}</div>
-          <div class="mb-2"><strong>Shift:</strong> ${escapeHtml(data.shift || '-')}</div>
+          <div class="mb-2"><strong>Shift:</strong> ${escapeHtml(data.shift_label || data.shift || '-')}</div>
           <div class="mb-2"><strong>Jam:</strong> ${escapeHtml((data.jam_mulai || '-') + ' - ' + (data.jam_ahir || '-'))}</div>
           <div class="mb-2"><strong>Assisten:</strong> ${escapeHtml(assisten)}</div>
         </div>
