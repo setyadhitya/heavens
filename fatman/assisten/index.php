@@ -1,22 +1,26 @@
 <?php
+// FILE: heavens/fatman/assisten/index.php
 require_once __DIR__ . '/../functions.php';
 require_admin();
 
+$pdo = db();
+
 // Ambil data awal (render pertama), reload berikutnya via AJAX -> assisten_action.php?action=list
-$result = $mysqli->query("SELECT * FROM tb_assisten ORDER BY id DESC");
+$stmt = $pdo->query("SELECT * FROM tb_assisten ORDER BY id DESC");
+$rows = $stmt->fetchAll();
 ?>
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <title>Data Assisten</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .table td, .table th { vertical-align: middle; }
-    .modal { z-index: 1050 !important; }
-    .modal-backdrop { z-index: 1040 !important; }
-  </style>
+<meta charset="utf-8">
+<title>Data Assisten</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+.table td, .table th { vertical-align: middle; }
+.modal { z-index: 1050 !important; }
+.modal-backdrop { z-index: 1040 !important; }
+</style>
 </head>
 <body class="bg-light">
 <?php include __DIR__ . '/../navbar.php'; ?>
@@ -45,8 +49,7 @@ $result = $mysqli->query("SELECT * FROM tb_assisten ORDER BY id DESC");
             </tr>
           </thead>
           <tbody id="assistenData">
-          <?php if ($result && $result->num_rows > 0): $no=1; ?>
-            <?php while ($row = $result->fetch_assoc()): ?>
+            <?php if (!empty($rows)): $no=1; foreach ($rows as $row): ?>
               <tr data-id="<?= (int)$row['id']; ?>">
                 <td class="text-center"><?= $no++; ?></td>
                 <td><?= e($row['username']); ?></td>
@@ -66,10 +69,9 @@ $result = $mysqli->query("SELECT * FROM tb_assisten ORDER BY id DESC");
                   <button class="btn btn-danger btn-sm btnHapus" data-id="<?= (int)$row['id']; ?>">Hapus</button>
                 </td>
               </tr>
-            <?php endwhile; ?>
-          <?php else: ?>
-            <tr><td colspan="8" class="text-center">Belum ada data.</td></tr>
-          <?php endif; ?>
+            <?php endforeach; else: ?>
+              <tr><td colspan="8" class="text-center">Belum ada data.</td></tr>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>
@@ -173,86 +175,17 @@ $result = $mysqli->query("SELECT * FROM tb_assisten ORDER BY id DESC");
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Tambah
-  const formTambah = document.getElementById('formTambah');
-  if (formTambah) {
-    formTambah.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      try {
-        const res = await fetch('assisten_action.php', { method: 'POST', body: new FormData(e.target) });
-        const html = await res.text();
-        document.getElementById('alertArea').innerHTML = html;
-
-        const modalEl = document.getElementById('modalTambah');
-        const modal = bootstrap.Modal.getInstance(modalEl);
-        if (modal) {
-          modal.hide();
-          setTimeout(async () => {
-            document.activeElement.blur();
-            await loadAssistenTable();
-            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
-          }, 200);
-        }
-        e.target.reset();
-      } catch (err) {
-        console.error(err);
-      }
-    });
-  }
-
-  // Attach listeners to dynamic table
-  function attachTableListeners() {
-    document.querySelectorAll('.btnEdit').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const id = btn.dataset.id;
-        try {
-          const res = await fetch('assisten_action.php?action=get&id=' + id);
-          if (!res.ok) throw new Error('Gagal ambil data');
-          const data = await res.json();
-
-          document.getElementById('edit_id').value = data.id;
-          document.getElementById('edit_username').value = data.username || '';
-          document.getElementById('edit_nama').value = data.nama || '';
-          document.getElementById('edit_nim').value = data.nim || '';
-          document.getElementById('edit_nomorhp').value = data.nomorhp || '';
-          document.getElementById('edit_password').value = ''; // kosongkan
-          document.getElementById('edit_status').value = data.status || 'nonaktif';
-
-          new bootstrap.Modal(document.getElementById('modalEdit')).show();
-        } catch (err) {
-          console.error(err);
-          alert('Terjadi kesalahan saat mengambil data.');
-        }
-      });
-    });
-
-    document.querySelectorAll('.btnHapus').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        if (!confirm('Yakin hapus assisten ini? Tindakan ini tidak bisa dibatalkan.')) return;
-        const form = new FormData();
-        form.append('action', 'hapus');
-        form.append('id', btn.dataset.id);
-        form.append('csrf_token', '<?= e(csrf_token()); ?>');
-        const res = await fetch('assisten_action.php', { method: 'POST', body: form });
-        const html = await res.text();
-        document.getElementById('alertArea').innerHTML = html;
-        await loadAssistenTable();
-      });
-    });
-  }
-
-  // Submit Edit
-  const formEdit = document.getElementById('formEdit');
-  if (formEdit) {
-    formEdit.addEventListener('submit', async (e) => {
-      e.preventDefault();
+// Tambah
+const formTambah = document.getElementById('formTambah');
+if (formTambah) {
+  formTambah.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    try {
       const res = await fetch('assisten_action.php', { method: 'POST', body: new FormData(e.target) });
       const html = await res.text();
       document.getElementById('alertArea').innerHTML = html;
 
-      const modalEl = document.getElementById('modalEdit');
+      const modalEl = document.getElementById('modalTambah');
       const modal = bootstrap.Modal.getInstance(modalEl);
       if (modal) {
         modal.hide();
@@ -264,29 +197,98 @@ document.addEventListener('DOMContentLoaded', () => {
           document.body.style.overflow = '';
         }, 200);
       }
-    });
-  }
-
-  async function loadAssistenTable() {
-    try {
-      const res = await fetch('assisten_action.php?action=list');
-      const html = await res.text();
-      document.getElementById('assistenData').innerHTML = html;
-      attachTableListeners();
+      e.target.reset();
     } catch (err) {
-      console.error('Gagal memuat tabel:', err);
+      console.error(err);
     }
-  }
-
-  attachTableListeners();
-
-  // Cleanup sisa modal
-  document.addEventListener('hidden.bs.modal', () => {
-    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-    document.body.classList.remove('modal-open');
-    document.body.style.overflow = '';
-    document.body.style.paddingRight = '';
   });
+}
+
+// Attach listeners to dynamic table
+function attachTableListeners() {
+  document.querySelectorAll('.btnEdit').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      try {
+        const res = await fetch('assisten_action.php?action=get&id=' + id);
+        if (!res.ok) throw new Error('Gagal ambil data');
+        const data = await res.json();
+
+        document.getElementById('edit_id').value = data.id ?? '';
+        document.getElementById('edit_username').value = data.username || '';
+        document.getElementById('edit_nama').value = data.nama || '';
+        document.getElementById('edit_nim').value = data.nim || '';
+        document.getElementById('edit_nomorhp').value = data.nomorhp || '';
+        document.getElementById('edit_password').value = ''; // kosongkan
+        document.getElementById('edit_status').value = data.status || 'nonaktif';
+
+        new bootstrap.Modal(document.getElementById('modalEdit')).show();
+      } catch (err) {
+        console.error(err);
+        alert('Terjadi kesalahan saat mengambil data.');
+      }
+    });
+  });
+
+  document.querySelectorAll('.btnHapus').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('Yakin hapus assisten ini? Tindakan ini tidak bisa dibatalkan.')) return;
+      const form = new FormData();
+      form.append('action', 'hapus');
+      form.append('id', btn.dataset.id);
+      form.append('csrf_token', '<?= e(csrf_token()); ?>');
+      const res = await fetch('assisten_action.php', { method: 'POST', body: form });
+      const html = await res.text();
+      document.getElementById('alertArea').innerHTML = html;
+      await loadAssistenTable();
+    });
+  });
+}
+
+// Submit Edit
+const formEdit = document.getElementById('formEdit');
+if (formEdit) {
+  formEdit.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const res = await fetch('assisten_action.php', { method: 'POST', body: new FormData(e.target) });
+    const html = await res.text();
+    document.getElementById('alertArea').innerHTML = html;
+
+    const modalEl = document.getElementById('modalEdit');
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    if (modal) {
+      modal.hide();
+      setTimeout(async () => {
+        document.activeElement.blur();
+        await loadAssistenTable();
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
+      }, 200);
+    }
+  });
+}
+
+async function loadAssistenTable() {
+  try {
+    const res = await fetch('assisten_action.php?action=list');
+    const html = await res.text();
+    document.getElementById('assistenData').innerHTML = html;
+    attachTableListeners();
+  } catch (err) {
+    console.error('Gagal memuat tabel:', err);
+  }
+}
+
+attachTableListeners();
+
+// Cleanup sisa modal
+document.addEventListener('hidden.bs.modal', () => {
+  document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+  document.body.classList.remove('modal-open');
+  document.body.style.overflow = '';
+  document.body.style.paddingRight = '';
+});
 });
 </script>
 </body>
