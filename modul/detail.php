@@ -1,92 +1,94 @@
+<?php
+require_once __DIR__ . '/../fatman/functions.php';
+$pdo = db();
+
+$id_modul = (int)($_GET['id_modul'] ?? 0);
+if ($id_modul <= 0) {
+    die('ID modul tidak valid.');
+}
+
+// Ambil data modul
+$stmt = $pdo->prepare("SELECT * FROM modul WHERE id_modul = ?");
+$stmt->execute([$id_modul]);
+$modul = $stmt->fetch();
+
+if (!$modul) {
+    die('Modul tidak ditemukan.');
+}
+
+// Ambil semua section
+$sec = $pdo->prepare("SELECT * FROM modul_section WHERE id_modul = ? ORDER BY urutan ASC");
+$sec->execute([$id_modul]);
+$sections = $sec->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Modul Praktikum - Detail</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    body { background:#f4f6f9; }
-    .content-box{background:white;padding:25px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1);}
-    .section-title{margin-top:25px;font-weight:600;padding-left:10px;border-left:6px solid;border-image:linear-gradient(to bottom,#007bff,#00d9ff) 1;}
-    .btn-image{text-align:center;margin-top:10px;}
-  </style>
+    <meta charset="UTF-8">
+    <title><?= e($modul['judul_modul']) ?> - Modul Praktikum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body { background: #f4f6f9; }
+        .modul-header { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 3px 6px rgba(0,0,0,.1); margin-bottom: 20px; }
+        .section-box { background: white; padding: 18px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #0d6efd; box-shadow: 0 2px 5px rgba(0,0,0,.1); }
+        .section-title { font-size: 18px; font-weight: bold; color: #0d6efd; display: flex; align-items: center; justify-content: space-between; }
+        .btn-img-view { font-size: 14px; }
+        .no-img { color: red; font-size: 30px; }
+    </style>
 </head>
 <body>
 
-<div class="container mt-4">
-  <a href="index.php" class="btn btn-secondary btn-sm mb-3"><i class="bi bi-arrow-left"></i> Kembali</a>
+<div class="container py-4">
+    <a href="index.php" class="btn btn-secondary btn-sm mb-3"><i class="bi bi-arrow-left"></i> Kembali ke Modul</a>
 
-  <div class="content-box">
-    <h3 class="fw-bold text-primary">Modul: Pengenalan HTML</h3>
-    <p><i class="bi bi-journal-bookmark"></i> Mata Kuliah: Pemrograman Web</p>
-    <hr>
+    <!-- HEADER MODUL -->
+    <div class="modul-header">
+        <h2 class="fw-bold mb-1"><?= e($modul['judul_modul']) ?></h2>
+        <p class="text-muted mb-2"><?= e($modul['mata_kuliah']) ?></p>
 
-    <div class="section-title">Deskripsi</div>
-    <p>Modul ini membahas dasar-dasar struktur HTML dan cara membuat halaman web.</p>
-    <div class="text-center"><button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#imgDeskripsi"><i class="bi bi-eye"></i> Lihat Gambar</button></div>
+        <?php if (!empty($modul['gambar_modul'])): ?>
+            <img src="../guwambar/modul/<?= e($modul['gambar_modul']) ?>" style="max-width:200px;border-radius:6px;border:1px solid #ddd;">
+        <?php endif; ?>
 
-    <div class="section-title">Tujuan Pembelajaran</div>
-    <ul>
-      <li>Mahasiswa memahami struktur HTML</li>
-      <li>Mahasiswa mampu membuat halaman HTML sederhana</li>
-    </ul>
-    <div class="text-center"><button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#imgTujuan"><i class="bi bi-eye"></i> Lihat Gambar</button></div>
+        <p class="mt-2"><?= $modul['deskripsi_singkat'] ? nl2br(e($modul['deskripsi_singkat'])) : '<i>(Tidak ada deskripsi)</i>' ?></p>
+    </div>
 
-    <div class="section-title">Alat dan Bahan</div>
-    <ul>
-      <li>PC/Laptop</li>
-      <li>VS Code</li>
-      <li>Browser Chrome</li>
-    </ul>
-    <div class="text-center"><button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#imgAlat"><i class="bi bi-eye"></i> Lihat Gambar</button></div>
+    <!-- SECTION LIST -->
+    <?php if (empty($sections)): ?>
+        <div class="alert alert-warning">Belum ada materi section pada modul ini.</div>
+    <?php else: ?>
+        <?php foreach ($sections as $s): ?>
+            <div class="section-box">
+                <div class="section-title">
+                    <?= e($s['judul_section']) ?>
 
-    <div class="section-title">Langkah Praktikum</div>
-    <ol>
-      <li>Buat folder project</li>
-      <li>Buat file <b>index.html</b></li>
-      <li>Tulis struktur HTML dasar</li>
-    </ol>
-    <div class="text-center"><button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#imgLangkah"><i class="bi bi-eye"></i> Lihat Gambar</button></div>
+                    <?php if (!empty($s['gambar_section'])): ?>
+                        <button class="btn btn-outline-primary btn-sm btn-img-view" data-bs-toggle="modal" data-bs-target="#imgModal<?= $s['id_section'] ?>">
+                            <i class="bi bi-image"></i> Lihat Gambar
+                        </button>
+                    <?php else: ?>
+                        <i class="bi bi-x-circle no-img"></i>
+                    <?php endif; ?>
+                </div>
 
-    <div class="section-title">Hasil Output</div>
-    <p>Berikut tampilan hasil HTML dasar di browser.</p>
-    <div class="text-center"><button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#imgHasil"><i class="bi bi-eye"></i> Lihat Gambar</button></div>
+                <p class="mt-2"><?= nl2br(e($s['isi_section'])) ?></p>
+            </div>
 
-    <hr>
-    <p class="text-muted small mb-0 text-center">© 2025 LabKom 3 Jaringan • Modul Praktikum</p>
-  </div>
-</div>
+            <!-- Modal Gambar -->
+            <?php if (!empty($s['gambar_section'])): ?>
+                <div class="modal fade" id="imgModal<?= $s['id_section'] ?>" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <img src="../guwambar/modul/section/<?= e($s['gambar_section']) ?>" class="w-100">
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 
-<div class="modal fade" id="imgDeskripsi" tabindex="-1">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <img src="../heavens/guwambar/modul/deskripsi.jpg" class="img-fluid rounded">
-  </div>
-</div>
-
-<div class="modal fade" id="imgTujuan" tabindex="-1">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <img src="../heavens/guwambar/modul/tujuan.jpg" class="img-fluid rounded">
-  </div>
-</div>
-
-<div class="modal fade" id="imgAlat" tabindex="-1">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <img src="../heavens/guwambar/modul/alat.jpg" class="img-fluid rounded">
-  </div>
-</div>
-
-<div class="modal fade" id="imgLangkah" tabindex="-1">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <img src="../heavens/guwambar/modul/langkah.jpg" class="img-fluid rounded">
-  </div>
-</div>
-
-<div class="modal fade" id="imgHasil" tabindex="-1">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <img src="../heavens/guwambar/modul/hasil.jpg" class="img-fluid rounded">
-  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
