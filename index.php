@@ -1,3 +1,9 @@
+<?php
+$currentPage = 'indexuser'; // atau 'detail_modul', 'home', dll sesuai tb_helper.halaman
+include __DIR__ . '/components/helper_bubble.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -90,6 +96,6 @@
 <footer class="text-center mt-2">
   © 2025 LabKom 3 Jaringan • Dibuat setengah semangat oleh PLP ☕ • Lab 3 Jaringan Komputer
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
