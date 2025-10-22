@@ -24,15 +24,19 @@ if (session_status() === PHP_SESSION_NONE) {
                     <ul class="dropdown-menu" aria-labelledby="akunDropdown">
                         <li><a class="dropdown-item" href="/heavens/fatman/index.php">Profil</a></li>
                         <li><a class="dropdown-item" href="/heavens/fatman/register.php">Tambah Akun (Register)</a></li>
+                        <li><a class="dropdown-item" href="/heavens/fatman/helper/index.php">???</a></li>
+
                     </ul>
                 </li>
 
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/praktikum">Praktikum</a></li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/modul">Modul</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/modul/section/index.php">Isi Modul</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/modul/section/index.php">Isi Modul</a>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/rekap">Rekap Presensi</a></li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/assisten">Assisten</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/assisten_praktikum">Assisten Praktikum</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/assisten_praktikum">Assisten
+                        Praktikum</a></li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/praktikan">Praktikan</a></li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/peserta">Peserta Praktikum</a></li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/approve">Approve Praktikan</a></li>
