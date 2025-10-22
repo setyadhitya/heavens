@@ -137,26 +137,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const formTambah = document.getElementById('formTambah');
 if (formTambah) {
-formTambah.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const res = await fetch('helper_action.php', { method: 'POST', body: new FormData(e.target) });
-    const html = await res.text();
-    document.getElementById('alertArea').innerHTML = html;
-    await loadHelperTable();
-    formTambah.reset();
-});
+    formTambah.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const res = await fetch('helper_action.php', { method: 'POST', body: new FormData(e.target) });
+        const html = await res.text();
+        document.getElementById('alertArea').innerHTML = html;
+
+        // Tutup modal tambah
+        const modalEl = document.getElementById('modalTambah');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+
+        await loadHelperTable();
+        formTambah.reset();
+    });
 }
+
 
 const formEdit = document.getElementById('formEdit');
 if (formEdit) {
-formEdit.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const res = await fetch('helper_action.php', { method: 'POST', body: new FormData(e.target) });
-    const html = await res.text();
-    document.getElementById('alertArea').innerHTML = html;
-    await loadHelperTable();
-});
+    formEdit.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const res = await fetch('helper_action.php', { method: 'POST', body: new FormData(e.target) });
+        const html = await res.text();
+        document.getElementById('alertArea').innerHTML = html;
+
+        // Tutup modal edit
+        const modalEl = document.getElementById('modalEdit');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+
+        await loadHelperTable();
+    });
 }
+
 
 function attachListeners() {
 document.querySelectorAll('.btnEdit').forEach(btn => {
