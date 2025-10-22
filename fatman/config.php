@@ -5,7 +5,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'php_login');
+define('DB_NAME', 'Sys-ASLPDC-T2B2');
 
 // ==========================
 // DEBUG MODE
@@ -17,7 +17,7 @@ error_reporting(E_ALL);
 // ==========================
 // SESSION SETTINGS
 if (session_status() === PHP_SESSION_NONE) {
-    session_name('php_login_sess'); // set name DULU
+    session_name('Sys-ASLPDC-T2B2_sess'); // set name DULU
     session_start([
         'cookie_httponly' => true,
         'cookie_samesite' => 'Lax',
