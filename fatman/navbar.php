@@ -29,7 +29,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/praktikum">Praktikum</a></li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/modul">Modul</a></li>
-                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/isi_modul">Isi Modul</a></li>
+                <li class="nav-item"><a class="nav-link" href="/heavens/fatman/modul/section/index.php">Isi Modul</a></li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/rekap">Rekap Presensi</a></li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/assisten">Assisten</a></li>
                 <li class="nav-item"><a class="nav-link" href="/heavens/fatman/assisten_praktikum">Assisten Praktikum</a></li>
