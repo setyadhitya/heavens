@@ -1,4 +1,6 @@
 <?php
+$currentPage = 'usermodul'; // atau 'detail_modul', 'home', dll sesuai tb_helper.halaman
+include __DIR__ . '/../components/helper_bubble.php';
 require_once __DIR__ . '/../fatman/functions.php';
 $pdo = db();
 
@@ -26,7 +28,7 @@ $moduls = $stmt->fetchAll();
 
 <div class="container py-4">
   <h2 class="mb-4 text-center fw-bold">📚 Daftar Modul Praktikum</h2>
-    <a href="../index.php" class="btn btn-secondary btn-sm mb-3"><i class="bi bi-arrow-left"></i> Kembali ke Modul</a>
+    <a href="../index.php" class="btn btn-secondary btn-sm mb-3"><i class="bi bi-arrow-left"></i> Kembali ke Beranda</a>
 
   <?php if (empty($moduls)): ?>
     <div class="alert alert-warning text-center">Belum ada modul yang tersedia.</div>

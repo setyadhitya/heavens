@@ -1,6 +1,10 @@
 <?php
 // Public page – read-only
 // Menggunakan koneksi PDO dari functions.php
+
+$currentPage = 'jadwal'; // atau 'detail_modul', 'home', dll sesuai tb_helper.halaman
+include __DIR__ . '/../components/helper_bubble.php';
+
 require_once __DIR__ . '/../fatman/functions.php';
 $pdo = db();
 

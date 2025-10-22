@@ -1,6 +1,8 @@
 <?php
-// Halaman Informasi Layanan IoT
-// Public page, tanpa login
+
+$currentPage = 'iot'; // atau 'detail_modul', 'home', dll sesuai tb_helper.halaman
+include __DIR__ . '/../components/helper_bubble.php';
+
 ?>
 <!doctype html>
 <html lang="id">
