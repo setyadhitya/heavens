@@ -58,7 +58,7 @@
     </div>
 
     <div class="col-6 col-md-4">
-      <a href="#" class="text-decoration-none text-dark">
+      <a href="./modul/index.php" class="text-decoration-none text-dark">
         <div class="menu-card text-center">
           <i class="bi bi-journal-bookmark display-6 text-success"></i>
           <div class="fw-semibold mt-2">Modul Praktikum</div>
