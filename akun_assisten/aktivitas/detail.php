@@ -1,5 +1,7 @@
 <?php
 // heavens/akun_assisten/aktivitas/detail.php
+$currentPage = 'aktivitassisten';
+include __DIR__ . '/../../components/helper_bubble.php';
 require_once __DIR__ . '/../../fatman/functions.php';
 
 // ===== AUTH (khusus assisten) =====

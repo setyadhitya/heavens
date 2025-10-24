@@ -1,7 +1,8 @@
 <?php
 // /heavens/akun_assisten/login/index.php
 // Login khusus untuk role "assisten"
-
+$currentPage = 'loginassisten';
+include __DIR__ . '/../../components/helper_bubble.php';
 require_once __DIR__ . '/../../fatman/functions.php';
 
 // Jika sudah login

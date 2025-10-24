@@ -1,6 +1,7 @@
 <?php
 // /heavens/akun_assisten/index.php
-
+$currentPage = 'akunassisten';
+include __DIR__ . '/../components/helper_bubble.php';
 // Cukup include functions.php untuk helper (DB, session, flash)
 require_once __DIR__ . '/../fatman/functions.php';
 

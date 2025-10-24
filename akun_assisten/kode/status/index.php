@@ -1,5 +1,7 @@
 <?php
 // heavens/akun_assisten/kode/status/index.php
+$currentPage = 'statuskodeassisten';
+include __DIR__ . '/../../../components/helper_bubble.php';
 date_default_timezone_set('Asia/Jakarta');
 require_once __DIR__ . '/../../../fatman/functions.php';
 
