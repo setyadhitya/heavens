@@ -1,14 +1,12 @@
 <?php
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
 
-// di paling atas access_guard.php (baris whitelist)
-if (strpos($uri, '/heavens/akun_mahasiswa/daftar') === 0) return;
 
-// ✅ IZINKAN HALAMAN LOGIN & LOGOUT
+// ✅ IZINKAN HALAMAN (whitelist/TANPA LOGIN)
 if (strpos($uri, '/heavens/fatman/login.php') === 0) return;
 if (strpos($uri, '/heavens/akun_assisten/login') === 0) return;
 if (strpos($uri, '/heavens/akun_mahasiswa/login') === 0) return;
-
+if (strpos($uri, '/heavens/akun_mahasiswa/daftar') === 0) return;
 if (strpos($uri, '/heavens/fatman/logout.php') === 0) return;
 if (strpos($uri, '/heavens/akun_assisten/logout.php') === 0) return;
 if (strpos($uri, '/heavens/akun_mahasiswa/logout.php') === 0) return;

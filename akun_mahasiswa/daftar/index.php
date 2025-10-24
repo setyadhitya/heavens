@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
             <div class="text-center mt-3">
-                <a href="/heavens/akun_mahasiswa/login.php">&larr; Kembali ke Login</a>
+                <a href="/heavens/index.php">&larr; Kembali ke Login</a>
             </div>
         </div>
     </div>
