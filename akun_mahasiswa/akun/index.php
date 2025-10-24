@@ -1,5 +1,7 @@
 <?php
 // /heavens/akun_mahasiswa/akun/index.php
+$currentPage = 'akunpprofilmahasiswa';
+include __DIR__ . '/../../components/helper_bubble.php';
 require_once __DIR__ . '/../../fatman/functions.php';
 
 // ====== AUTH GUARD (khusus praktikan) ======

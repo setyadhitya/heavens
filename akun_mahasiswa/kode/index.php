@@ -1,5 +1,7 @@
 <?php
 // heavens/akun_mahasiswa/kode/index.php
+$currentPage = 'presensimahasiswa';
+include __DIR__ . '/../../components/helper_bubble.php';
 require_once __DIR__ . '/../../fatman/functions.php';
 
 // ========== AUTH ==========

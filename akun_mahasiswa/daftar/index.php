@@ -1,5 +1,7 @@
 <?php
 // /heavens/akun_mahasiswa/daftar/index.php
+$currentPage = 'daftarmahasiswa';
+include __DIR__ . '/../../components/helper_bubble.php';
 require_once __DIR__ . '/../../fatman/functions.php';
 
 $pdo = db();
@@ -146,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
             <div class="text-center mt-3">
-                <a href="/heavens/index.php">&larr; Kembali ke Login</a>
+                <a href="/heavens/akun_mahasiswa/login/index.php">&larr; Kembali ke Login</a>
             </div>
         </div>
     </div>

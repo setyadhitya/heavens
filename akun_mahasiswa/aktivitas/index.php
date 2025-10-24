@@ -1,5 +1,7 @@
 <?php
 // heavens/akun_mahasiswa/aktivitas/index.php
+$currentPage = 'aktivitasmahasiswa';
+include __DIR__ . '/../../components/helper_bubble.php';
 require_once __DIR__ . '/../../fatman/functions.php';
 
 // ===== AUTH (khusus praktikan) =====
