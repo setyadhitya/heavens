@@ -1,6 +1,8 @@
 <?php
 // /heavens/akun_assisten/akun/index.php
-require_once __DIR__ . '/../../fatman/functions.php';
+
+$currentPage = 'akunprofilassisten';
+include __DIR__ . '/../../components/helper_bubble.php';require_once __DIR__ . '/../../fatman/functions.php';
 
 // ====== AUTH GUARD (khusus assisten) ======
 if (!is_logged_in() || ($_SESSION['role'] ?? '') !== 'assisten') {
