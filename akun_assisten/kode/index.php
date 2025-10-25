@@ -24,8 +24,21 @@ $nomorhp  = $_SESSION['user_nomorhp'] ?? '-';
 
 $pdo = db();
 
+// ===== AUTO EXPIRE =====
+// Expire otomatis semua kode aktif yang sudah lebih dari 5 menit
+// AUTO EXPIRE kode lama (backup logic, biar pasti bersih)
+$pdo->prepare("
+    UPDATE tb_kode_presensi
+    SET status = 'expired'
+    WHERE status = 'aktif'
+    AND (created_at IS NULL OR created_at < NOW() - INTERVAL 5 MINUTE)
+    AND generated_by_assisten_id = ?
+")->execute([$assisten_id]);
+
+
 // ===== CEK KODE AKTIF (ambil yang terbaru) =====
 $cekAktif = $pdo->prepare("
+
     SELECT id, pertemuan_ke
     FROM tb_kode_presensi
     WHERE generated_by_assisten_id = ? AND status = 'aktif'
